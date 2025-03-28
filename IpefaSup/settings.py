@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'IpefaSup.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'IpefaSup',
+        'USER': 'postgres',
+        'PASSWORD': 'pierre',
+        'HOST': 'localhost',  # Ou l'adresse de votre serveur PostgreSQL
+        'PORT': '5432',  # Port par défaut de PostgreSQL
     }
 }
 
