@@ -18,3 +18,14 @@ class Person(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+class Employee(Person):
+    employee_email = models.EmailField(unique=True)
+    matricule = models.CharField(max_length=255)
+
+class Teacher(Employee):
+    pass
+
+class Educator(Employee):
+    pass
+
