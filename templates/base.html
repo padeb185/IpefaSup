@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ipefa Sup</title>
+    <title>Ipefa Sup - {% block title %}Bienvenue{% endblock %}</title>
 </head>
-<body>
-
+<body id="{% block bodyId %}genericPage{% endblock %}">
+    <header>
+    {% block headerContent %}{% endblock %}
+    </header>
+    <section id="content">
+    {% block content %}{% endblock %}
+    </section>
 </body>
 </html>
