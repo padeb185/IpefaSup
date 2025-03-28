@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -82,6 +83,7 @@ DATABASES = {
         'PASSWORD': 'pierre',
         'HOST': 'localhost',  # Ou l'adresse de votre serveur PostgreSQL
         'PORT': '5432',  # Port par défaut de PostgreSQL
+
     }
 }
 
