@@ -1,5 +1,5 @@
 from django import forms
-from .models import Personne
+from .models import Person
 
 
 class LoginForm(forms.Form):
@@ -14,7 +14,7 @@ class LoginForm(forms.Form):
 
         # Vérifie que les deux champs sont valides
         if email and password:
-            result = Personne.objects.filter(mot_de_passe=password, courriel=email)
+            result = Person.objects.filter(mot_de_passe=password, courriel=email)
             if result.count() != 1:
                 raise forms.ValidationError("Adresse de courriel ou mot de passe erroné.")
 
