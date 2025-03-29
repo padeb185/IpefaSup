@@ -29,11 +29,11 @@ class Employee(Person):
 
 class Teacher(Employee):
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name} {self.employee_email}"
 
 class Educator(Employee):
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name} {self.employee_email}"
 
 class Student(Person):  # Hérite de Person
     studentMail = models.EmailField(unique=True)  # Email étudiant
