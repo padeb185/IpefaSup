@@ -29,3 +29,43 @@ class Teacher(Employee):
 class Educator(Employee):
     pass
 
+
+
+
+class Section(models.Model):
+    wording = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.wording
+
+
+#Une Section a un wording (nom ou description).
+
+#Une UE (Unité d'Enseignement) a plusieurs attributs (idUE, wording, numberPeriods).
+
+#Une Section peut être associée à plusieurs UEs (relation 0,N).
+
+#Une UE peut avoir plusieurs prérequis (relation récursive 0,N).
+
+
+
+class UE(models.Model):
+    idUE = models.CharField(max_length=50, unique=True)
+    wording = models.CharField(max_length=255)
+    numberPeriods = models.IntegerField()
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='ues')  # Relation 0,N avec Section
+    prerequisites = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='dependents')  # Relation récursive 0,N
+
+    def __str__(self):
+        return f"{self.idUE} - {self.wording}"
+
+#Avec cette approche, tu peux récupérer :
+
+ #   Toutes les UEs d'une section : section_instance.ues.all()
+
+ #   Les prérequis d'une UE : ue_instance.prerequisites.all()
+
+ #   Les UEs qui dépendent d'une UE donnée : ue_instance.dependents.all()
+
+
+
