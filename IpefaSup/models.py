@@ -16,18 +16,24 @@ class Person(models.Model):
     private_email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
 
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+    class Meta:
+        abstract = True  # Empêche la création d'une table Person
+
 
 class Employee(Person):
     employee_email = models.EmailField(unique=True)
     matricule = models.CharField(max_length=255)
 
+    class Meta:
+        abstract = True  # Empêche la création de la table Employee
+
 class Teacher(Employee):
-    pass
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
 class Educator(Employee):
-    pass
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
 
 
@@ -72,7 +78,8 @@ class UE(models.Model):
 class AcademicUE(UE):  # Hérite de UE
     academicYear = models.CharField(max_length=9)  # Ex: "2024-2025"
     yearCycle = models.IntegerField()
-
+    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True, blank=True,
+                                related_name='academic_ues')  # Relation 0,1 vers Teacher
     def type(self):
         return "Academic UE"
 
@@ -105,7 +112,7 @@ class Session(models.Model):
 
 # Création d'une AcademicUE
 # academic_ue = AcademicUE.objects.create(idUE="MATH101", wording="Mathématiques", numberPeriods=30,
-                                        section=section, academicYear="2024-2025", yearCycle=1)
+                                       # section=section, academicYear="2024-2025", yearCycle=1)
 
 # Ajout de sessions
 #session1 = Session.objects.create(jour=15, mois=6, academicUE=academic_ue)
