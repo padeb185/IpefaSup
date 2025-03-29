@@ -39,8 +39,52 @@ class Student(Person):  # Hérite de Person
     studentMail = models.EmailField(unique=True)  # Email étudiant
     sessions = models.ManyToManyField('Session', related_name='students',
                                       blank=True)  # Relation ManyToMany avec Session
+    academic_ues = models.ManyToManyField('AcademicUE', related_name='students',
+                                          blank=True)  # Relation ManyToMany avec AcademicUE
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.studentMail})"
+
+
+# Création d'un étudiant
+student = Student.objects.create(
+    first_name="John",
+    last_name="Doe",
+    email="john.doe@example.com",
+    studentMail="johndoe@student.university.com"
+)
+
+# Création d'une section
+section = Section.objects.create(wording="Sciences")
+
+# Création d'AcademicUE
+math_ue = AcademicUE.objects.create(idUE="MATH101", wording="Mathématiques", numberPeriods=30,
+                                    section=section, academicYear="2024-2025", yearCycle=1)
+
+physics_ue = AcademicUE.objects.create(idUE="PHYS101", wording="Physique", numberPeriods=40,
+                                       section=section, academicYear="2024-2025", yearCycle=1)
+
+# Inscrire l'étudiant à ces UE
+#student.academic_ues.add(math_ue, physics_ue)
+
+# Vérifier les UE d'un étudiant
+#for ue in student.academic_ues.all():
+#    print(ue)
+
+# Vérifier les étudiants inscrits dans une UE
+#for stud in math_ue.students.all():
+#    print(stud)
+
+#Résultat attendu
+
+#MATH101 - Mathématiques (2024-2025, Cycle 1)
+#PHYS101 - Physique (2024-2025, Cycle 1)
+#John Doe (johndoe@student.university.com)
+
+#✅ Cette implémentation respecte bien la relation ManyToMany entre Student et AcademicUE !
+#Besoin d'un ajustement ou d'une contrainte supplémentaire ? 🚀😊
+
+
+
 
 
 class Section(models.Model):
@@ -126,3 +170,14 @@ class Session(models.Model):
 # Afficher les sessions d'une UE
 #for session in academic_ue.sessions.all():
 #    print(session)
+
+
+
+
+class Participation(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='participations')
+    session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='participations')
+    status = models.CharField(max_length=50, choices=[("P", "Présentiel"), ("M", "distanciel"), ("A", "absence"), ("CM", "CM"), ("abandon", "abandon"), ("dispense", "dispense")])
+
+    def __str__(self):
+        return f"{self.student} - {self.session} ({self.status})"
