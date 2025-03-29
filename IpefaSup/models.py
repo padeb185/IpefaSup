@@ -174,6 +174,12 @@ class Session(models.Model):
 
 
 
+
+# Une classe Participation qui relie Student et Session avec une relation en pointillé indique généralement une association avec une classe intermédiaire (c'est-à-dire une relation ManyToMany avec attributs).
+
+#Dans Django, cela signifie que nous devons remplacer la relation ManyToMany directe entre Student et Session par un modèle Participation qui stockera le statut de la participation.
+
+
 class Participation(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='participations')
     session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='participations')
@@ -181,3 +187,46 @@ class Participation(models.Model):
 
     def __str__(self):
         return f"{self.student} - {self.session} ({self.status})"
+
+
+# Création d'un étudiant
+#student = Student.objects.create(
+#    first_name="John",
+#    last_name="Doe",
+#    email="john.doe@example.com",
+#    studentMail="johndoe@student.university.com"
+#)
+
+# Création d'une section et d'une UE
+#section = Section.objects.create(wording="Sciences")
+#academic_ue = AcademicUE.objects.create(idUE="MATH101", wording="Mathématiques", numberPeriods=30,
+                                       # section=section, academicYear="2024-2025", yearCycle=1)
+
+# Création d'une session
+#session = Session.objects.create(jour=15, mois=6, academicUE=academic_ue)
+
+# Inscription de l'étudiant à la session avec un statut
+#participation = Participation.objects.create(student=student, session=session, status="present")
+
+# Vérifier les participations d'un étudiant
+#for p in student.participations.all():
+#    print(p)
+
+# Vérifier les participations d'une session
+#for p in session.participations.all():
+#    print(p)
+
+
+
+
+
+class Registration(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='registrations')
+    academic_ue = models.ForeignKey(AcademicUE, on_delete=models.CASCADE, related_name='registrations')
+    approved = models.BooleanField(default=False)  # Indique si l'inscription est approuvée
+    result = models.FloatField(null=True, blank=True)  # Résultat de l'étudiant (peut être null)
+    status = models.CharField(max_length=2, choices=[("NP", "Non Passé"), ("AP", "Approuvé")], default="NP")  # Statut (NP par défaut)
+
+    def __str__(self):
+        return f"{self.student} inscrit à {self.academic_ue} - Statut: {self.status}"
+
