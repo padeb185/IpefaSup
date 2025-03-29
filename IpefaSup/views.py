@@ -20,3 +20,14 @@ def login(request: HttpRequest):
         form = LoginForm()
 
     return render(request, "login.html", {"form": form})
+
+def login_view(request: HttpRequest):  # Change le nom de la fonction pour éviter le conflit
+    if request.method == "POST":  # Utiliser POST pour les formulaires de connexion
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            # Une fois le formulaire valide, rediriger vers la page de bienvenue
+            return redirect("/welcome")
+    else:
+        form = LoginForm()
+
+    return render(request, "login.html", {"form": form})

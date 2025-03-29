@@ -1,11 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
+
+<!-- Correcte référence au fichier CSS -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
 {% block title %}Connexion{% endblock %}
 
 {% block bodyId %}loginPage{% endblock %}
 
 {% block content %}
-<form action="login" method="post">
+<form action="{% url 'login' %}" method="post">  <!-- Correction de l'URL du formulaire -->
   {{ csrf_token }}
   {% if error %}
   <p class="error">{{ error }}</p>

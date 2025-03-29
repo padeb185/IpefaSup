@@ -83,7 +83,6 @@ DATABASES = {
         'PASSWORD': 'pierre',
         'HOST': 'localhost',  # Ou l'adresse de votre serveur PostgreSQL
         'PORT': '5432',  # Port par défaut de PostgreSQL
-
     }
 }
 
@@ -131,7 +130,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [        #page 187
-    BASE_DIR / 'static',
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'IpefaSup/static'),
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
