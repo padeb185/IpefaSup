@@ -54,14 +54,14 @@ student = Student.objects.create(
 )
 
 # Création d'une section
-section = Section.objects.create(wording="Sciences")
+#section = Section.objects.create(wording="Sciences")
 
 # Création d'AcademicUE
-math_ue = AcademicUE.objects.create(idUE="MATH101", wording="Mathématiques", numberPeriods=30,
-                                    section=section, academicYear="2024-2025", yearCycle=1)
+#math_ue = AcademicUE.objects.create(idUE="MATH101", wording="Mathématiques", numberPeriods=30,
+            #                        section=section, academicYear="2024-2025", yearCycle=1)
 
-physics_ue = AcademicUE.objects.create(idUE="PHYS101", wording="Physique", numberPeriods=40,
-                                       section=section, academicYear="2024-2025", yearCycle=1)
+#physics_ue = AcademicUE.objects.create(idUE="PHYS101", wording="Physique", numberPeriods=40,
+#                                       section=section, academicYear="2024-2025", yearCycle=1)
 
 # Inscrire l'étudiant à ces UE
 #student.academic_ues.add(math_ue, physics_ue)
