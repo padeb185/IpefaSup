@@ -230,3 +230,49 @@ class Registration(models.Model):
     def __str__(self):
         return f"{self.student} inscrit à {self.academic_ue} - Statut: {self.status}"
 
+#    La classe Registration :
+
+#        student : Une ForeignKey vers le modèle Student, ce qui signifie qu'un étudiant peut avoir plusieurs inscriptions (une par AcademicUE).
+
+#        academic_ue : Une ForeignKey vers le modèle AcademicUE, ce qui signifie qu'une AcademicUE peut avoir plusieurs étudiants inscrits via Registration.
+
+#        approved : Un boolean indiquant si l'inscription a été approuvée.
+
+#        result : Un float pour stocker le résultat de l'étudiant (peut être vide si non noté).
+
+#        status : Un char avec des options "NP" (Non Passé) et "AP" (Approuvé), par défaut "NP".
+
+#    Relation ManyToMany avec la classe Registration :
+#    La relation ManyToMany entre Student et AcademicUE est gérée par l'intermédiaire de la classe Registration, ce qui permet d'ajouter des informations supplémentaires (comme le statut ou les résultats).
+
+#Exemple d'utilisation
+
+# Création d'un étudiant
+#student = Student.objects.create(
+#    first_name="John",
+#    last_name="Doe",
+#    email="john.doe@example.com",
+#    studentMail="johndoe@student.university.com"
+#)
+
+# Création d'une section et d'une UE
+#section = Section.objects.create(wording="Sciences")
+#academic_ue = AcademicUE.objects.create(idUE="MATH101", wording="Mathématiques", numberPeriods=30,
+#                                        section=section, academicYear="2024-2025", yearCycle=1)
+
+# Inscrire l'étudiant à l'UE via Registration
+#registration = Registration.objects.create(student=student, academic_ue=academic_ue, approved=True, result=15.5, status="AP")
+
+# Vérifier les inscriptions d'un étudiant
+#for reg in student.registrations.all():
+#    print(reg)
+
+# Vérifier les étudiants inscrits dans une UE
+#for reg in academic_ue.registrations.all():
+#    print(reg)
+
+#Résultat attendu
+
+#John Doe (johndoe@student.university.com) inscrit à MATH101 - Mathématiques (2024-2025, Cycle 1) - Statut: AP
+#John Doe (johndoe@student.university.com) inscrit à MATH101 - Mathématiques (2024-2025, Cycle 1) - Statut: AP
+
