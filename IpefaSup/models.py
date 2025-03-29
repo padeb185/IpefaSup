@@ -80,3 +80,37 @@ class AcademicUE(UE):  # Hérite de UE
         return f"{self.idUE} - {self.wording} ({self.academicYear}, Cycle {self.yearCycle})"
 
 
+#Si tu as un lien de composition (♦ noire) entre AcademicUE et Session, cela signifie que :
+
+ #   Une AcademicUE contient des Sessions.
+
+ #   Une Session ne peut pas exister sans une AcademicUE.
+
+ #   Si une AcademicUE est supprimée, toutes ses Sessions sont supprimées aussi.
+
+
+
+class Session(models.Model):
+    jour = models.IntegerField()  # 1 à 31
+    mois = models.IntegerField()  # 1 à 12
+    academicUE = models.ForeignKey(AcademicUE, on_delete=models.CASCADE, related_name='sessions')  # Composition
+
+    def __str__(self):
+        return f"Session le {self.jour}/{self.mois} pour {self.academicUE.wording}"
+
+
+
+# Création d'une section
+# section = Section.objects.create(wording="Sciences")
+
+# Création d'une AcademicUE
+# academic_ue = AcademicUE.objects.create(idUE="MATH101", wording="Mathématiques", numberPeriods=30,
+                                        section=section, academicYear="2024-2025", yearCycle=1)
+
+# Ajout de sessions
+#session1 = Session.objects.create(jour=15, mois=6, academicUE=academic_ue)
+#session2 = Session.objects.create(jour=20, mois=12, academicUE=academic_ue)
+
+# Afficher les sessions d'une UE
+#for session in academic_ue.sessions.all():
+#    print(session)
