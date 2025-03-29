@@ -37,7 +37,8 @@ class Educator(Employee):
 
 class Student(Person):  # Hérite de Person
     studentMail = models.EmailField(unique=True)  # Email étudiant
-
+    sessions = models.ManyToManyField('Session', related_name='students',
+                                      blank=True)  # Relation ManyToMany avec Session
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.studentMail})"
 
