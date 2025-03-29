@@ -35,7 +35,11 @@ class Educator(Employee):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+class Student(Person):  # Hérite de Person
+    studentMail = models.EmailField(unique=True)  # Email étudiant
 
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} ({self.studentMail})"
 
 
 class Section(models.Model):
