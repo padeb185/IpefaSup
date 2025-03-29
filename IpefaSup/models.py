@@ -69,3 +69,14 @@ class UE(models.Model):
 
 
 
+class AcademicUE(UE):  # Hérite de UE
+    academicYear = models.CharField(max_length=9)  # Ex: "2024-2025"
+    yearCycle = models.IntegerField()
+
+    def type(self):
+        return "Academic UE"
+
+    def __str__(self):
+        return f"{self.idUE} - {self.wording} ({self.academicYear}, Cycle {self.yearCycle})"
+
+
