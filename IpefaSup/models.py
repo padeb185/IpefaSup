@@ -20,6 +20,9 @@ class Person(models.Model):
         abstract = True  # Empêche la création d'une table Person
 
 
+
+
+
 class Employee(Person):
     employee_email = models.EmailField(unique=True)
     matricule = models.CharField(max_length=255)
@@ -27,13 +30,33 @@ class Employee(Person):
     class Meta:
         abstract = True  # Empêche la création de la table Employee
 
+
+
+
+
 class Teacher(Employee):
     def __str__(self):
         return f"{self.first_name} {self.last_name} {self.employee_email}"
 
+
+
+
+
 class Educator(Employee):
     def __str__(self):
         return f"{self.first_name} {self.last_name} {self.employee_email}"
+
+
+
+class Administrator(Employee):  # Hérite de Employee
+    # Vous pouvez ajouter des attributs ou méthodes spécifiques aux administrateurs
+    role = models.CharField(max_length=100, default="Administrator")
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} - {self.role}"
+
+
+
 
 class Student(Person):  # Hérite de Person
     studentMail = models.EmailField(unique=True)  # Email étudiant
@@ -46,12 +69,12 @@ class Student(Person):  # Hérite de Person
 
 
 # Création d'un étudiant
-student = Student.objects.create(
-    first_name="John",
-    last_name="Doe",
-    email="john.doe@example.com",
-    studentMail="johndoe@student.university.com"
-)
+#student = Student.objects.create(
+#    first_name="John",
+#    last_name="Doe",
+#    email="john.doe@example.com",
+#    studentMail="johndoe@student.university.com"
+#)
 
 # Création d'une section
 #section = Section.objects.create(wording="Sciences")
