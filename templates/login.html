@@ -1,28 +1,26 @@
 {% extends "base.html" %}
 {% load static %}
 
-<!-- Correcte référence au fichier CSS -->
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-
 {% block title %}Connexion{% endblock %}
 
 {% block bodyId %}loginPage{% endblock %}
 
 {% block content %}
-<form action="{% url 'login' %}" method="post">  <!-- Correction de l'URL du formulaire -->
-  {{ csrf_token }}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+<form action="{% url 'login' %}" method="post">
+  {% csrf_token %}  <!-- Correction de la balise CSRF -->
   {% if error %}
   <p class="error">{{ error }}</p>
   {% endif %}
-  {% for field in form %}
-    <p>
-        {{ field.label_tag }} {{ field }}
-        {% if field.errors %}
-            <span class="error">{{ field.errors.0 }}</span>
-        {% endif %}
-    </p>
- {% endfor %}
-
+  <p>
+      <label for="email">E-mail : </label>
+      <input name="email" id="email" size="30" type="email">
+  </p>
+  <p>
+      <label for="password">Mot de passe : </label>
+      <input name="password" id="password" size="30" type="password">
+  </p>
   <p>
     <input type="submit" value="Se connecter" />
     <a href="#">Créer un compte</a>
