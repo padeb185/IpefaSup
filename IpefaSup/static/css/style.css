@@ -4,7 +4,7 @@ header {
 	top: 0;
 	height: 129px;
 	width: 100%;
-	background: #cd1531 url('../img/logo.png') no-repeat;
+	background: #cd1531 url('../img/logo.png') no-repeat right;
 }
 
 body {
