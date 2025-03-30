@@ -21,13 +21,21 @@ def login(request: HttpRequest):
 
     return render(request, "login.html", {"form": form})
 
-def login_view(request: HttpRequest):  # Change le nom de la fonction pour éviter le conflit
-    if request.method == "POST":  # Utiliser POST pour les formulaires de connexion
-        form = LoginForm(request.POST)
+
+
+def login_view(request):
+    form = LoginForm(request.POST or None)
+
+    if request.method == "POST":
         if form.is_valid():
-            # Une fois le formulaire valide, rediriger vers la page de bienvenue
-            return redirect("/welcome")
-    else:
-        form = LoginForm()
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            user = authenticate(request, username=email, password=password)  # 🔹 Vérifie que ça retourne bien un user
+
+            if user is not None:
+                login(request, user)  # ✅ Fournir `user`
+                return redirect("/welcome")
+            else:
+                form.add_error(None, "Identifiants invalides")  # Ajoute une erreur visible
 
     return render(request, "login.html", {"form": form})

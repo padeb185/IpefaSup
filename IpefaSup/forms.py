@@ -3,9 +3,8 @@ from .models import Person
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label='Courriel :')
-    password = forms.CharField(label='Mot de passe :',
-                               widget=forms.PasswordInput)
+    email = forms.EmailField(label="Courriel", required=True)
+    password = forms.CharField(label="Mot de passe", widget=forms.PasswordInput, required=True)
 
     def clean(self):
         cleaned_data = super().clean()

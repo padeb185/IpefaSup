@@ -4,7 +4,7 @@ header {
 	top: 0;
 	height: 129px;
 	width: 100%;
-	background: #3b5998 url('../img/logo.png') no-repeat;
+	background: #cd1531 url('../img/logo.png') no-repeat;
 }
 
 body {
@@ -40,10 +40,14 @@ form input[type="password"]{
 }
 
 a {
-	color: #3b5998;
+	color: #cd1531;
 }
 
 form p.error {
 	margin-left: 160px;
 	color: #d23d24
+}
+
+input[name="csrfmiddlewaretoken"] {
+    display: none;
 }
