@@ -9,18 +9,21 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 
 <form action="{% url 'login' %}" method="post">
-  {% csrf_token %}  <!-- Correction de la balise CSRF -->
+  {% csrf_token %}
   {% if error %}
   <p class="error">{{ error }}</p>
   {% endif %}
+  
   <p>
-      <label for="email">E-mail : </label>
-      <input name="email" id="email" size="30" type="email">
+      <label for="email">E-mail :</label>
+      <input name="email" id="email" size="30" type="email" required>
   </p>
+  
   <p>
-      <label for="password">Mot de passe : </label>
-      <input name="password" id="password" size="30" type="password">
+      <label for="password">Mot de passe :</label>
+      <input name="password" id="password" size="30" type="password" required>
   </p>
+  
   <p>
     <input type="submit" value="Se connecter" />
     <a href="#">Créer un compte</a>
