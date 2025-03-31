@@ -1,6 +1,8 @@
-from django import forms
-from .models import Person, Educator, Employee
+from itertools import chain
 
+from django import forms
+from .models import Person, Educator, Employee, Teacher
+from django.db.models import Q
 
 class LoginForm(forms.Form):
     email = forms.EmailField(label="Courriel", required=True)
@@ -13,8 +15,11 @@ class LoginForm(forms.Form):
 
         # Vérifie que les deux champs sont valides
         if email and password:
-            result = Educator.objects.filter(password=password, employee_email=email)
-            if result.count() != 1:
-                raise forms.ValidationError("Adresse de courriel ou mot de passe erroné.")
+            educator_queryset = Educator.objects.filter(Q(password=password) & Q(employee_email=email))
+            teacher_queryset = Teacher.objects.filter(Q(password=password) & Q(employee_email=email))
 
+            # Combinez les résultats avec `chain`
+            result = list(chain(educator_queryset, teacher_queryset))
+            if len(result) != 1:
+                raise forms.ValidationError("Adresse de courriel ou mot de passe erroné.")
         return cleaned_data

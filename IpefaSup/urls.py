@@ -22,6 +22,6 @@ from IpefaSup.views import welcome, login
 urlpatterns = [
        path('', login),
        path("login/", login, name="login"),
-       path('welcome', welcome),
+       path("welcome/", welcome, name="welcome"),
        path('admin/', admin.site.urls),
 ]

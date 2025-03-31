@@ -1,28 +1,23 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.views.decorators.csrf import csrf_protect
+from django.shortcuts import render, redirect
+from django.contrib import messages
+
+from .forms import LoginForm
+from .models import Teacher  # Vérifie que c'est bien ton modèle
 from datetime import datetime
-from .forms import LoginForm  # Assurez-vous que LoginForm est bien impo
 
 
 def welcome(request):
-    return render(request, 'welcome.html', {'current_date_time': datetime.now()})  # Correction de 'curent' -> 'current' et appel de now()
+    return render(request, "welcome.html",{ 'current_date_time':datetime.now()})
 
 
-
-@csrf_protect
 def login(request):
-    form = LoginForm(request.POST or None)  # Initialisation du formulaire
-
-    if request.method == "POST" and form.is_valid():
-        email = form.cleaned_data["email"]
-        password = form.cleaned_data["password"]
-        user = authenticate(request, username=email, password=password)  # Vérifie les identifiants
-
-        if user is not None:
-            login(request, user)  # Connecte l'utilisateur
-            return redirect("/welcome")  # Redirige après connexion réussie
+    if len(request.POST)>0:
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            return redirect('/welcome')
         else:
-            form.add_error(None, "Identifiants invalides")  # Affiche une erreur
-
-    return render(request, "login.html", {"form": form})  # Affiche le formulaire
+            return render(request, "login.html", {'form':form})
+    else:
+        form = LoginForm(request.POST)
+        return render(request, "login.html", {'form':form})
