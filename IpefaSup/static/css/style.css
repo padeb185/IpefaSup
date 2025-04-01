@@ -24,6 +24,12 @@ body#loginPage section#content {
 	padding: 0;
 }
 
+body#welcomePage#add_studentPage section#content {
+	padding-top: 200px;
+	margin-top: 200px;
+}
+
+
 form label {
 	display: block;
 	width: 150px;
@@ -50,4 +56,8 @@ form p.error {
 
 input[name="csrfmiddlewaretoken"] {
     display: none;
+}
+
+h1 {
+	padding-top: 200px;
 }

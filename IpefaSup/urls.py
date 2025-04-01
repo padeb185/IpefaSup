@@ -17,11 +17,12 @@ Including another URLconf
 from django.contrib.auth import login
 from django.contrib import admin
 from django.urls import path
-from IpefaSup.views import welcome, login
+from IpefaSup.views import welcome, login, add_student_views
 
 urlpatterns = [
        path('', login),
        path("login/", login, name="login"),
        path("welcome/", welcome, name="welcome"),
+       path('welcome/add_student/', add_student_views, name='add_student'),
        path('admin/', admin.site.urls),
 ]
